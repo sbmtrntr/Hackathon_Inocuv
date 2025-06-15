@@ -4,7 +4,7 @@ from google.cloud import storage
 
 # サービスアカウントのJSONキーを指定
 credentials = service_account.Credentials.from_service_account_file(
-    "ogp-owner.json",
+    "credentials/ogp-owner.json",
     scopes=["https://www.googleapis.com/auth/cloud-platform"]
 )
 
