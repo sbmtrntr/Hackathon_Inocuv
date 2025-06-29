@@ -1,0 +1,23 @@
+# 一般的に除外するもの
+.git
+.gitignore
+node_modules
+npm-debug.log
+Dockerfile*
+README.md
+
+# すべてを一旦無視して、必要なものだけ追加
+*
+
+# 必要なファイルだけ含める（ビルドに必要なファイル）
+!package.json
+!package-lock.json
+!tsconfig.json
+!next.config.ts
+!next-env.d.ts
+!postcss.config.mjs
+!eslint.config.mjs
+
+# アプリケーションソース
+!src/**
+!public/**
