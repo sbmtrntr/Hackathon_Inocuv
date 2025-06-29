@@ -185,20 +185,23 @@ const Home = () => {
 
         {/* 最近学習したもの */}
         <div className="mt-8">
-          <h2 className="text-lg font-bold mb-2 text-black">
-            最近学習したもの
-          </h2>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="border border-gray-300 p-4 rounded-md text-sm text-black">
-              二次方程式の解の公式を導出せよ。
-            </div>
-            <div className="border border-gray-300 p-4 rounded-md text-sm text-black">
-              二次方程式の解の公式を導出せよ。
+          <h2 className="text-lg font-bold mb-2 text-black">最近学習したもの</h2>
+            <div className="grid grid-cols-2 gap-4">
+              {dummyLessonData.slice(-6).map((lesson) => (
+            <div
+              key={lesson.id}
+              className={`border-2 p-4 rounded-md text-sm text-black border-${subjectColorMap[lesson.subject] ?? 'gray-300'}`}
+            >
+                  <div className="font-semibold">{lesson.title}</div>
+                  <div className="text-xs text-gray-500 mt-1">
+                    科目: {lesson.subject} ／ 難易度: {lesson.difficulty}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
