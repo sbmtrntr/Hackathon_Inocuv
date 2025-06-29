@@ -12,6 +12,7 @@ project_id = credentials.project_id  # ← 実際のGCPプロジェクトIDに�
 #print(project_id)
 # Cloud Storage クライアント
 storage_client = storage.Client(credentials=credentials, project=project_id)
+# バケット名を指定
 bucket = storage_client.bucket("our-growth-bucket")
 
 # Firestore クライアント
@@ -20,13 +21,15 @@ db = firestore.Client(credentials=credentials, project=project_id)
 # ドキュメント取得と確認
 doc_ref = db.collection("sample-collection").document("sample-id")
 doc = doc_ref.get()
-
 metadata = doc.to_dict()
 print("✅ file_path:", metadata["file_path"])
-file_path = metadata["file_path"]
 
+# BLOB(binary large object)なので,
+# 「ディレクトリ(仮想)+保存するファイル」としてプレフィックスを登録
+file_path = metadata["file_path"] + "empty.txt"
 blob = bucket.blob(file_path)
 # Cloud Storageへアップロード
+# ※登録したプレフィックスの末ディレクトリにデータが保存される
 blob.upload_from_filename("sample_code/empty.txt")
 
 # Firestoreにメタデータ登録
