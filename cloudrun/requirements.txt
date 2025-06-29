@@ -1,2 +1,10 @@
 fastapi
 uvicorn
+pymysql
+python-dotenv
+requests 
+google-cloud-aiplatform
+google-auth
+google-auth-oauthlib 
+google-api-python-client 
+google-cloud-storage
