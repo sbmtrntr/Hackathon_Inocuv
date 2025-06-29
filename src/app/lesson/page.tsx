@@ -2,25 +2,54 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { Client } from "@gradio/client";
 
 export default function AnswerPage() {
   const [input, setInput] = useState('')
   const [result, setResult] = useState('')
 
   // const handleSubmit = async () => {
-  //   if (!input) return
+  //   // if (!input) return
 
-  //   const res = await fetch('/api/answer', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ input }),
-  //   })
+  //   // try {
+  //     // const res = await fetch('https://genai-app-our-growth-1-1751189839812-dcwwneccgq-uc.a.run.app/run/predict', {
+  //     //   method: 'POST',
+  //     //   headers: {
+  //     //     'Content-Type': 'application/json',
+  //     //   },
+  //     //   body: JSON.stringify({
+  //     //     data: [input], // Gradioに渡す形式（通常は配列）
+  //     //   }),
+  //     // })
 
-  //   const data = await res.json()
-  //   setResult(data.output)
+  //     // const data = await res.json()
+  //     // console.log('Gradio API レスポンス:', data)
+
+  //     // // Gradioの出力は data.data[0] に入っている場合が多い
+  //     // setResult(data.data[0])
+
+  //     // setResult(response.data || '返答がありませんでした')
+
+  //   // } catch (error) {
+  //   //   console.error('Gradio API 呼び出し失敗:', error)
+  //   //   // setResult('エラーが発生しました')
+  //   // }
+
   // }
+
+    const handleSubmit = async () => {
+      console.log('入力:', input)
+      const res = await fetch('/api/answer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ input })
+      })
+    const data = await res.json()
+    setResult(data.output)
+  }
+
+
+
 
   return (
     <div className="w-full flex justify-center bg-gray-100 min-h-screen">
@@ -50,7 +79,7 @@ export default function AnswerPage() {
 
           {/* 送信ボタン */}
           <button
-            onClick={() => console.log("hogehoge")}
+            onClick={handleSubmit}
             className="absolute bottom-8 right-3 bg-black text-white px-3 py-1 rounded-full hover:bg-gray-800 transition"
           >
             ↑
