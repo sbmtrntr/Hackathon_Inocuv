@@ -1,8 +1,11 @@
-'use client'
+"use client";
 
-import React from 'react'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import React from "react";
+// import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { Model } from "@/components/Model";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
 
 const Home = () => {
   const router = useRouter();
@@ -11,24 +14,44 @@ const Home = () => {
       <div className="bg-white w-full max-w-[768px] rounded-lg p-6 shadow-md">
         {/* アバターとユーザー情報 */}
         <div className="flex items-center gap-6">
-          <Image
+          {/* <Image
             src="/avator_sample.svg"
             alt="アバター"
             width={450}
             height={160}
             className="rounded-lg"
-          />
+          /> */}
+          <Canvas
+            frameloop="always"
+            style={{ height: 450, width: 450 }}
+            camera={{ fov: 50, near: 0.1, far: 300, position: [0, 1, -1.0] }}
+            flat
+          >
+            <directionalLight position={[1, 1, -1]} color={"0xFFFFFF"} />
+            <Model
+              url="/vrm/AvatarSample_A.vrm"
+              animationUrl="/VRMA_MotionPack/vrma/VRMA_01.vrma"
+            />
+            <color attach="background" args={["#f7f7f7"]} />
+            <OrbitControls
+              target={[0, 1.2, 0]}
+              enableZoom={false}
+              enablePan={false}
+              enableDamping={false}
+            />
+            <gridHelper />
+          </Canvas>
+
           <div className="flex-1 ">
             <h1 className="text-5xl font-bold text-black">ワンダー</h1>
-            <button className="mt-3 w-full bg-black text-white py-2 rounded-md text-center"
-              onClick={() => router.push('/lesson')}
+            <button
+              className="mt-3 w-full bg-black text-white py-2 rounded-md text-center"
+              onClick={() => router.push("/lesson")}
             >
               今日の問題を解く
             </button>
             <div className="mt-2 text-center">
-              <button className="w-full px-4 py-1 bg-indigo-200 text-indigo-800 text-sm rounded-md"
-                onClick={() => router.push('/avator')}
-              >
+              <button className="w-full px-4 py-1 bg-indigo-200 text-indigo-800 text-sm rounded-md">
                 アバター着せ替え
               </button>
             </div>
@@ -38,16 +61,29 @@ const Home = () => {
         {/* 曜日＋にこにこ */}
         <div className="mt-8 border-2 border-blue-400 rounded-xl p-2">
           <div className="grid grid-cols-7 text-center text-lg font-bold text-gray-700">
-            {['月', '火', '水', '木', '金', '土', '日'].map((day, index) => (
-              <div key={index} className={index === 5 ? 'text-blue-600' : index === 6 ? 'text-red-500' : ''}>
+            {["月", "火", "水", "木", "金", "土", "日"].map((day, index) => (
+              <div
+                key={index}
+                className={
+                  index === 5
+                    ? "text-blue-600"
+                    : index === 6
+                    ? "text-red-500"
+                    : ""
+                }
+              >
                 {day}
               </div>
             ))}
           </div>
           <div className="grid grid-cols-7 mt-2 text-center">
-            {Array(7).fill(0).map((_, i) => (
-              <div key={i} className="text-orange-400 text-3xl">😊</div>
-            ))}
+            {Array(7)
+              .fill(0)
+              .map((_, i) => (
+                <div key={i} className="text-orange-400 text-3xl">
+                  😊
+                </div>
+              ))}
           </div>
         </div>
 
@@ -77,7 +113,9 @@ const Home = () => {
 
         {/* 最近学習したもの */}
         <div className="mt-8">
-          <h2 className="text-lg font-bold mb-2 text-black">最近学習したもの</h2>
+          <h2 className="text-lg font-bold mb-2 text-black">
+            最近学習したもの
+          </h2>
           <div className="grid grid-cols-2 gap-4">
             <div className="border border-gray-300 p-4 rounded-md text-sm text-black">
               二次方程式の解の公式を導出せよ。
@@ -89,7 +127,7 @@ const Home = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Home;
