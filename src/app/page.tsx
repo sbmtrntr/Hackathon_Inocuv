@@ -9,18 +9,76 @@ import { OrbitControls } from "@react-three/drei";
 
 const Home = () => {
   const router = useRouter();
+  /////////////////////////.      dummy data.     //////////////////////////
+  const dummyUserData = [
+    {
+    "id": 1,
+    "user_name": "test1",
+    "email": "test1@test.com",
+    "password": "test1@123"
+    },
+    {
+    "id": 2,
+    "user_name": "test2",
+    "email": "test2@test.com",
+    "password": "test2@123"
+    },
+    {
+      "id": 3,
+      "user_name": "test3",
+      "email": "test3@test.com",
+      "password": "test3@123"
+    },
+  ];
+
+  const dummyLessonData = [
+    {
+      "id": 1,
+      "title": "二次方程式の解の公式を導出せよ。",
+      "subject": "数学",
+      "difficulty": "中級",
+    },
+    {
+      "id": 2,
+      "title": "円周率が3.05よりも大きいことを証明せよ。",
+      "subject": "数学",
+      "difficulty": "上級",
+    },
+    {
+      "id": 3,
+      "title": "光の屈折率を求めよ。",
+      "subject": "理科",
+      "difficulty": "初級",
+    },
+    {      "id": 4,
+      "title": "日本の首都を答えよ。",
+      "subject": "社会",
+      "difficulty": "初級",
+    },
+    {
+      "id": 5,
+      "title": "英語の文法を説明せよ。",
+      "subject": "英語",
+      "difficulty": "中級",
+    },
+    {
+      "id": 6,
+      "title": "化学反応式を書け。",
+      "subject": "理科",
+      "difficulty": "中級",
+    },
+  ]
+  /////////////////////////.    end dummy data.     //////////////////////////
+
+
+
+
+
   return (
     <div className="w-full flex justify-center bg-gray-100 min-h-screen">
       <div className="bg-white w-full max-w-[768px] rounded-lg p-6 shadow-md">
         {/* アバターとユーザー情報 */}
         <div className="flex items-center gap-6">
-          {/* <Image
-            src="/avator_sample.svg"
-            alt="アバター"
-            width={450}
-            height={160}
-            className="rounded-lg"
-          /> */}
           <Canvas
             frameloop="always"
             style={{ height: 450, width: 450 }}
