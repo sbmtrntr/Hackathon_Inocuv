@@ -69,8 +69,32 @@ const Home = () => {
     },
   ]
   /////////////////////////.    end dummy data.     //////////////////////////
+  // 教科別カラー（別ファイル分けたい）
+    const subjectColorMap: { [subject: string]: string } = {
+    国語: 'red-300',
+    数学: 'indigo-300',
+    理科: 'green-300',
+    社会: 'yellow-300',
+    英語: 'purple-300',
+  }
 
-
+  // 教科別ロゴ（別ファイル分けたい）
+    const subjectsIconMap = [
+    { name: '国語', color: 'red-300', icon: <text x="50%" y="50%" textAnchor="middle" dominantBaseline="central" fontSize="20" fill="white">文</text> },
+    { name: '数学', color: 'indigo-300', icon: <text x="50%" y="50%" textAnchor="middle" dominantBaseline="central" fontSize="24" fill="white">∑</text> },
+    { name: '理科', color: 'green-300', icon: <path d="M24 16h16v4l-4 8v10a8 8 0 1 1 -8 0V28l-4 -8v-4z" fill="white" /> },
+    {
+      name: '社会',
+      color: 'yellow-300',
+      icon: (
+        <>
+          <circle cx="32" cy="32" r="16" stroke="white" strokeWidth="2" fill="none" />
+          <path d="M16,32 H48 M32,16 V48 M22,22 A16,16 0 0,0 42,42" stroke="white" strokeWidth="2" fill="none" />
+        </>
+      ),
+    },
+    { name: '英語', color: 'purple-300', icon: <text x="50%" y="50%" textAnchor="middle" dominantBaseline="central" fontSize="24" fill="white">A</text> },
+  ]
 
 
 
