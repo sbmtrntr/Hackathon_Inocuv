@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import root, avatar, student
+from routes import root, avatar, student, question
 
 app = FastAPI()
 
@@ -16,8 +16,9 @@ app.add_middleware(
 # ルーターを追加
 app.include_router(root.router)
 app.include_router(student.router)  
-app.include_router(avatar.router) 
+app.include_router(avatar.router)
+app.include_router(question.router)
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -14,31 +14,26 @@
 
 ## 学生登録
 ```
-curl -X POST \
-     -H "Content-Type: application/json" \
-     -d '{
-           "student_id": "student002",
-           "name": "田中花子",
-           "grade": 9,
-           "school": "西中学校",
-           "avatar_id": "avatar_b02",
-           "character_type_id": "type-A",
-           "email": "hanako.tanaka@example.com",
-           "password_hash": "another_hashed_password"
-         }' \
-     http://127.0.0.1:8000/student/signup
+curl -X POST "http://localhost:8000/student/signup" \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "山田 太郎",
+  "grade": 1,
+  "school": "私立X高校",
+  "character_type_id": 1
+}'
 ```
 
 ## 学生の情報を取得
-`http://localhost:8000/student/student002`
+`http://localhost:8000/student/645807b2-6c70-47bd-bbc7-9b25fd19dcfd`
 
 ## 学生のアバター情報を取得
-`http://localhost:8000/student/student002/avatar`
+`http://localhost:8000/student/645807b2-6c70-47bd-bbc7-9b25fd19dcfd/avatar`
 
 ## geminiとの会話
 ```
 curl -X POST -H "Content-Type: application/json" -d '{
-    "student_id": "7b8c9d0e-1f2a-3456-7890-abcdef90123",
+    "student_id": "645807b2-6c70-47bd-bbc7-9b25fd19dcfd",
     "message": "こんにちは、Vertex AI！"
-}' http://localhost:8080/chat/vertex_ai
+}' http://localhost:8000/chat/vertex_ai
 ```

@@ -1,20 +1,16 @@
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
 from connect_db import get_connection
-import datetime
+import uuid
 
 router = APIRouter()
 
 # 学生登録用のリクエストボディの構造を定義
 class StudentCreate(BaseModel):
-    student_id: str
     name: str
     grade: int
     school: str
-    avatar_id: str
-    character_type_id: str 
-    email: str 
-    password_hash: str 
+    character_type_id: int
 
 @router.post("/student/signup")
 def create_student(student: StudentCreate):
@@ -23,38 +19,37 @@ def create_student(student: StudentCreate):
     conn = get_connection()
     cursor = conn.cursor()
     try:
+        student_uuid = uuid.uuid4()
+        avatar_uuid = uuid.uuid4()
+
         # 1. 学生情報の登録
         query = """
-            INSERT INTO students (student_id, name, grade, school, avatar_id, email, password_hash)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO students (student_id, name, grade, school, avatar_id)
+            VALUES (%s, %s, %s, %s, %s)
         """
         cursor.execute(query, (
-            student.student_id,
+            student_uuid,
             student.name,
             student.grade,
             student.school,
-            student.avatar_id,
-            student.email,
-            student.password_hash # password_hash も忘れずに含める
+            avatar_uuid,
         ))
 
         # 2. アバター情報の登録
         # 初期値の設定
         initial_level = 1
         initial_experience = 0
-        current_time = datetime.datetime.now() # 現在のタイムスタンプを取得
 
         avatar_query = """
-            INSERT INTO avatars (avatar_id, student_id, character_type_id, level, experience, created_at)
-            VALUES (%s, %s, %s, %s, %s, %s)
+            INSERT INTO avatars (avatar_id, student_id, character_type_id, level, experience)
+            VALUES (%s, %s, %s, %s, %s)
         """
         cursor.execute(avatar_query, (
-            student.avatar_id,
-            student.student_id,
+            avatar_uuid, 
+            student_uuid,
             student.character_type_id, # リクエストボディから取得
             initial_level,
             initial_experience,
-            current_time
         ))
         
         conn.commit() # 両方の操作が成功した場合のみコミット
@@ -85,7 +80,6 @@ def get_student_info(student_id: str):
                 grade,       
                 school,  
                 avatar_id,
-                email,
                 created_at
             FROM
                 students
