@@ -13,7 +13,7 @@ const Home = () => {
   const dummyUserData = [
     {
     "id": 1,
-    "user_name": "test1",
+    "user_name": "ワンダー",
     "email": "test1@test.com",
     "password": "test1@123"
     },
@@ -96,7 +96,8 @@ const Home = () => {
     { name: '英語', color: 'purple-300', icon: <text x="50%" y="50%" textAnchor="middle" dominantBaseline="central" fontSize="24" fill="white">A</text> },
   ]
 
-
+  // 最初のユーザーをダミーとして使用
+  const currentUser = dummyUserData[0];
 
   return (
     <div className="w-full flex justify-center bg-gray-100 min-h-screen">
@@ -125,15 +126,16 @@ const Home = () => {
           </Canvas>
 
           <div className="flex-1 ">
-            <h1 className="text-5xl font-bold text-black">ワンダー</h1>
-            <button
-              className="mt-3 w-full bg-black text-white py-2 rounded-md text-center"
-              onClick={() => router.push("/lesson")}
+            <h1 className="text-5xl font-bold text-black">{currentUser.user_name}</h1>
+            <button className="mt-3 w-full bg-black text-white py-2 rounded-md text-center"
+              onClick={() => router.push('/lesson')}
             >
               今日の問題を解く
             </button>
             <div className="mt-2 text-center">
-              <button className="w-full px-4 py-1 bg-indigo-200 text-indigo-800 text-sm rounded-md">
+              <button className="w-full px-4 py-1 bg-indigo-200 text-indigo-800 text-sm rounded-md"
+                onClick={() => router.push('/avator')}
+              >
                 アバター着せ替え
               </button>
             </div>
@@ -171,26 +173,14 @@ const Home = () => {
 
         {/* 教科バッジ */}
         <div className="mt-8 grid grid-cols-5 gap-4 text-center">
-          <div>
-            <div className="w-16 h-16 mx-auto rounded-full bg-red-300" />
-            <p className="mt-2 text-lg text-black">国語</p>
-          </div>
-          <div>
-            <div className="w-16 h-16 mx-auto rounded-full bg-indigo-300" />
-            <p className="mt-2 text-lg text-black">数学</p>
-          </div>
-          <div>
-            <div className="w-16 h-16 mx-auto rounded-full bg-green-300" />
-            <p className="mt-2 text-lg text-black">理科</p>
-          </div>
-          <div>
-            <div className="w-16 h-16 mx-auto rounded-full bg-yellow-300" />
-            <p className="mt-2 text-lg text-black">社会</p>
-          </div>
-          <div>
-            <div className="w-16 h-16 mx-auto rounded-full bg-purple-300" />
-            <p className="mt-2 text-lg text-black">英語</p>
-          </div>
+          {subjectsIconMap.map((subject, index) => (
+            <div key={index}>
+              <svg viewBox="0 0 64 64" className={`w-16 h-16 mx-auto rounded-full bg-${subject.color}`}>
+                {subject.icon}
+              </svg>
+              <p className="mt-2 text-lg text-black">{subject.name}</p>
+            </div>
+          ))}
         </div>
 
         {/* 最近学習したもの */}
